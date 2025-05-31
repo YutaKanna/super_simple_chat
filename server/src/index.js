@@ -5,7 +5,9 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
-import { initDatabase, saveMessage, getMessages } from './database.js';
+// データベースの選択（DATABASE_URLがあればPostgreSQL、なければSQLite）
+const databaseModule = process.env.DATABASE_URL ? './database-pg.js' : './database.js';
+const { initDatabase, saveMessage, getMessages } = await import(databaseModule);
 
 dotenv.config();
 
