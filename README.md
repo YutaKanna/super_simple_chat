@@ -66,13 +66,6 @@ npm run dev
      - `NODE_ENV`: `production`
      - `CLIENT_URL`: デプロイ後のURL
 
-### Railwayへのデプロイ
-
-1. Railwayでアカウントを作成
-2. GitHubリポジトリを接続
-3. 環境変数を設定
-4. デプロイを実行
-
 ## ライセンス
 
 ISC
