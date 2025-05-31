@@ -8,13 +8,19 @@ const __dirname = dirname(__filename);
 const dbName = process.env.DB_NAME || (process.env.NODE_ENV === 'production' ? 'chat-prod.db' : 'chat.db');
 const dbPath = join(__dirname, '../db', dbName);
 
+console.log('Database environment:', {
+  NODE_ENV: process.env.NODE_ENV,
+  DB_NAME: process.env.DB_NAME,
+  dbName: dbName,
+  dbPath: dbPath
+});
+
 // データベース接続
 const db = new sqlite3.Database(dbPath, (err) => {
   if (err) {
     console.error('Error opening database:', err);
   } else {
-    console.log('Connected to SQLite database');
-  }
+    console.log(`Connected to SQLite database: ${dbName}`);
 });
 
 // データベース初期化
