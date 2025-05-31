@@ -5,7 +5,8 @@ import { dirname, join } from 'path';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const dbPath = join(__dirname, '../db/chat.db');
+const dbName = process.env.DB_NAME || (process.env.NODE_ENV === 'production' ? 'chat-prod.db' : 'chat.db');
+const dbPath = join(__dirname, '../db', dbName);
 
 // データベース接続
 const db = new sqlite3.Database(dbPath, (err) => {
