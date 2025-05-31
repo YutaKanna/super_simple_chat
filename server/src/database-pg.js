@@ -7,9 +7,19 @@ const pool = new Pool({
   ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
 });
 
+console.log('PostgreSQL connection config:', {
+  hasConnectionString: !!process.env.DATABASE_URL,
+  nodeEnv: process.env.NODE_ENV,
+  sslEnabled: process.env.NODE_ENV === 'production'
+});
+
 // データベース初期化
 export const initDatabase = async () => {
   try {
+    // 接続テスト
+    const testResult = await pool.query('SELECT NOW()');
+    console.log('PostgreSQL connection test successful:', testResult.rows[0]);
+    
     await pool.query(`
       CREATE TABLE IF NOT EXISTS messages (
         id SERIAL PRIMARY KEY,
@@ -19,6 +29,12 @@ export const initDatabase = async () => {
       )
     `);
     console.log('PostgreSQL database initialized');
+    
+    // テーブルの確認
+    const tableCheck = await pool.query(`
+      SELECT COUNT(*) FROM messages
+    `);
+    console.log('Current message count:', tableCheck.rows[0].count);
   } catch (error) {
     console.error('Error initializing database:', error);
     throw error;

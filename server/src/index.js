@@ -5,11 +5,14 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
+
+// 環境変数を最初に読み込む
+dotenv.config();
+
 // データベースの選択（DATABASE_URLがあればPostgreSQL、なければSQLite）
 const databaseModule = process.env.DATABASE_URL ? './database-pg.js' : './database.js';
+console.log('Using database:', process.env.DATABASE_URL ? 'PostgreSQL' : 'SQLite');
 const { initDatabase, saveMessage, getMessages } = await import(databaseModule);
-
-dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
