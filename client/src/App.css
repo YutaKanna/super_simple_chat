@@ -101,6 +101,8 @@
 .message {
   margin-bottom: 1rem;
   animation: slideIn 0.3s ease-out;
+  display: flex;
+  flex-direction: column;
 }
 
 @keyframes slideIn {
@@ -115,11 +117,11 @@
 }
 
 .own-message {
-  text-align: right;
+  align-items: flex-end;
 }
 
 .other-message {
-  text-align: left;
+  align-items: flex-start;
 }
 
 .message-header {
@@ -144,6 +146,7 @@
   border-radius: 20px;
   max-width: 70%;
   word-wrap: break-word;
+  word-break: break-word;
 }
 
 .own-message .message-text {
